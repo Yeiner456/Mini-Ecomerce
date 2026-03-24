@@ -1,6 +1,28 @@
 import { useState } from "react";
 import "../styles/RenderProductos.css";
 
+// Calcula el precio con descuento aplicado
+function calcularPrecioFinal(price, discountPercentage) {
+    return (price * (1 - discountPercentage / 100)).toFixed(2)
+}
+
+function PrecioProducto({ price, discountPercentage }) {
+    const tieneDescuento = discountPercentage >= 10
+
+    if (tieneDescuento) {
+        const precioFinal = calcularPrecioFinal(price, discountPercentage)
+        return (
+            <div className="precio-container">
+                <span className="precio-original">${price}</span>
+                <span className="precio-final">${precioFinal}</span>
+                <span className="precio-badge">-{Math.round(discountPercentage)}%</span>
+            </div>
+        )
+    }
+
+    return <p className="precio">${price}</p>
+}
+
 export default function Productos({ productos, categorias, categoriaActiva, setCategoriaActiva, loading, error }) {
     const [seleccionado, setSeleccionado] = useState(null);
 
@@ -17,8 +39,7 @@ export default function Productos({ productos, categorias, categoriaActiva, setC
                         <h2>{seleccionado.title}</h2>
                         <p className="categoria">{seleccionado.category} — {seleccionado.brand}</p>
                         <p className="descripcion">{seleccionado.description}</p>
-                        <p className="precio">${seleccionado.price}</p>
-                        <p className="descuento">Descuento: {seleccionado.discountPercentage}%</p>
+                        <PrecioProducto price={seleccionado.price} discountPercentage={seleccionado.discountPercentage} />
                         <p className="rating-stock">⭐ {seleccionado.rating} — Stock: {seleccionado.stock}</p>
                     </div>
                 </div>
@@ -50,8 +71,7 @@ export default function Productos({ productos, categorias, categoriaActiva, setC
                             <h3>{producto.title}</h3>
                             <p className="categoria">{producto.category}</p>
                             <p className="descripcion">{producto.description}</p>
-                            <p className="precio">${producto.price}</p>
-                            <p className="descuento">Descuento: {producto.discountPercentage}%</p>
+                            <PrecioProducto price={producto.price} discountPercentage={producto.discountPercentage} />
                             <p className="rating-stock">⭐ {producto.rating} — Stock: {producto.stock}</p>
                             <p className="marca">Marca: {producto.brand}</p>
                         </div>

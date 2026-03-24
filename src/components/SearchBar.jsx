@@ -4,13 +4,13 @@ import '../styles/SearchBar.css'
 export default function SearchBar({
     products = [],
     selectedCategory = null,
+    soloConDescuento = false,
     onResults,
     placeholder = 'Buscar productos...',
 }) {
     const [query, setQuery] = useState('')
     const [isFocused, setIsFocused] = useState(false)
 
-    // Filtra cada vez que cambia el texto o la categoría
     useEffect(() => {
         const q = query.trim().toLowerCase()
 
@@ -19,17 +19,21 @@ export default function SearchBar({
                 ? product.category?.toLowerCase() === selectedCategory.toLowerCase()
                 : true
 
+
             const matchesQuery = q
-                ? product.name?.toLowerCase().includes(q) ||
+                ? product.title?.toLowerCase().includes(q) ||
                 product.description?.toLowerCase().includes(q) ||
                 product.category?.toLowerCase().includes(q)
                 : true
 
-            return matchesCategory && matchesQuery
+            const matchesDescuento = soloConDescuento
+                ? product.discountPercentage >= 10
+                : true
+            return matchesCategory && matchesQuery && matchesDescuento
         })
 
         onResults?.(results)
-    }, [query, selectedCategory, products])
+    }, [query, selectedCategory, soloConDescuento, products])
 
     return (
         <div className={`search-bar ${isFocused ? 'search-bar--focused' : ''}`}>
@@ -51,8 +55,6 @@ export default function SearchBar({
         </div>
     )
 }
-
-
 
 function SearchIcon() {
     return (

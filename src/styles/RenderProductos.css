@@ -141,3 +141,31 @@
 .producto-card {
     cursor: pointer;
 }
+
+.precio-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.precio-original {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.precio-final {
+    font-weight: bold;
+    color: #e53935;
+    font-size: 1rem;
+}
+
+.precio-badge {
+    background: #e53935;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
