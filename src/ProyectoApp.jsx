@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Productos from './components/RenderProductos.jsx'
 import SearchBar from './components/SearchBar.jsx'
 import DescuentoCheckbox from './components/ConDescuento.jsx'
-
+import "./styles/ProyectoApp.css"
 
 export const ProyectoApp = () => {
     const [data, setData] = useState([])
@@ -53,7 +53,7 @@ export const ProyectoApp = () => {
                 onChange={setSoloConDescuento}
             />
 
-            <select
+            <select className='ordenador'
                 value={orden}
                 onChange={(e) => setOrden(e.target.value)}
             >
