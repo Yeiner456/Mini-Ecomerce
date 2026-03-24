@@ -3,13 +3,15 @@ import Productos from './components/RenderProductos.jsx'
 import SearchBar from './components/SearchBar.jsx'
 import DescuentoCheckbox from './components/ConDescuento.jsx'
 
+
 export const ProyectoApp = () => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [categoriaActiva, setCategoriaActiva] = useState("todas")
     const [productosFiltrados, setProductosFiltrados] = useState([])
-    const [soloConDescuento, setSoloConDescuento] = useState(false)  // ← nuevo
+    const [soloConDescuento, setSoloConDescuento] = useState(false)
+    const [orden, setOrden] = useState("ninguno") // "ninguno" | "asc" | "desc"
 
     useEffect(() => {
         const cargar = async () => {
@@ -27,10 +29,16 @@ export const ProyectoApp = () => {
         cargar()
     }, [])
 
+    const productosOrdenados = orden === "asc"
+        ? [...productosFiltrados].sort((a, b) => a.price - b.price)
+        : orden === "desc"
+            ? [...productosFiltrados].sort((a, b) => b.price - a.price)
+            : productosFiltrados
+
     const categorias = ["todas", ...new Set(data.map((p) => p.category))]
 
     return (
-        <div>
+        <main>
             <h1>Mini Ecomerce</h1>
 
             <SearchBar
@@ -40,20 +48,28 @@ export const ProyectoApp = () => {
                 onResults={setProductosFiltrados}
             />
 
-            {/* El checkbox vive aquí, su estado sube a ProyectoApp */}
             <DescuentoCheckbox
                 checked={soloConDescuento}
                 onChange={setSoloConDescuento}
             />
 
+            <select
+                value={orden}
+                onChange={(e) => setOrden(e.target.value)}
+            >
+                <option value="ninguno">Ordenar por precio</option>
+                <option value="asc">Menor a mayor</option>
+                <option value="desc">Mayor a menor</option>
+            </select>
+
             <Productos
-                productos={productosFiltrados}
+                productos={productosOrdenados}
                 categorias={categorias}
                 categoriaActiva={categoriaActiva}
                 setCategoriaActiva={setCategoriaActiva}
                 loading={loading}
                 error={error}
             />
-        </div>
+        </main>
     )
 }
