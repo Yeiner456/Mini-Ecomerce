@@ -1,18 +1,9 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Para correr este proyecto necesitas tener Node.js instalado. Si no lo tienes, descárgalo desde nodejs.org (versión LTS).
+Una vez tengas Node, abre una terminal en la carpeta del proyecto y corre estos comandos en orden:
+bash# 1. Instalar dependencias
+npm install
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# 2. Levantar el servidor de desarrollo
+npm run dev
+Después de npm run dev, Vite te mostrará una URL como http://localhost:5173 — ábrela en el navegador y el proyecto estará corriendo.
